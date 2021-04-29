@@ -5,6 +5,7 @@ import torch.nn as nn
 from dataloader import RotationPartLoader
 from model import Network
 from train import train_model
+from utils import save_state_dict
 
 
 data_file = 'images.txt'
@@ -16,6 +17,7 @@ epochs = 200
 model_path = None
 filename = 'checkpoint_rotation_part_resnet50.pth.tar'
 log_filename = 'log_rotation_part_resnet50.log'
+state_dict_file_name = 'sd_rotation_part_resnet50.pth'
 use_gpu = torch.cuda.is_available()
 num_workers = 3
 shuffle = True
@@ -38,3 +40,4 @@ else:
 net = net.to(device)
 criterion = nn.CrossEntropyLoss()
 train_model(net, criterion, optimizer, start_epoch, epochs, dataset, train_loader, device, filename, log_filename)
+save_state_dict(filename, state_dict_file_name)
